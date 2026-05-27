@@ -7,11 +7,11 @@ class gameRunner():
     def __init__(self) -> None:
         self.height = HEIGHT
         self.width = WIDTH
-        self.screen = pygame.display.set_mode((self.height, self.width))
+        self.screen = pygame.display.set_mode((self.width, self.height))
         self.clock = pygame.time.Clock()
         self.running = True
 
-        self.current_scene = TitleScreen()
+        self.scene = TitleScreen()
 
 
     def run(self) -> None:
@@ -23,7 +23,7 @@ class gameRunner():
                     self.running = False
             
             self.scene.update()
-            self.scene.draw()
+            self.scene.display()
             pygame.display.flip()
             self.clock.tick(FPS)
 
