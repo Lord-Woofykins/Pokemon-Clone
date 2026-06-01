@@ -1,8 +1,6 @@
 import json
 
 import pygame
-from typing_extensions import Self
-
 
 class inputManager:
     _instance = None
@@ -10,7 +8,7 @@ class inputManager:
     bindStore: str
     binds: dict
 
-    def __new__(cls) -> Self:
+    def __new__(cls):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
 
@@ -29,16 +27,16 @@ class inputManager:
 
     def _load(self):
         try:
-            with open(self.bindStore, "r") as saveFile:
-                saveData = json.load(saveFile)
-                return saveData["binds"]
-        except:
-            with open(self.bindStore, "w") as saveFile:
-                json.dump(self.binds, self.bindStore)
-                return saveData["binds"]
+            with open(self.bindStore, "r") as bindStore:
+                bindData = json.load(bindStore)
+                return bindData
+        except json.JSONDecodeError:
+            with open(self.bindStore, "w") as bindStore:
+                json.dump(self.binds, bindStore)
+                return self.binds
         
     def temp(self, action, key):
-        self.binds.update({action, key})
+        self.binds.update({action: key})
         with open(self.bindStore, "w") as saveFile:
             json.dump(self.binds, saveFile)
     
