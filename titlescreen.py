@@ -1,11 +1,17 @@
 import pygame
+
+from inputManager import inputManager
 from abstractClasses import scene
-from Constants import fonts, palette, ANTIALIASING, WIDTH, HEIGHT
+from Constants import ANTIALIASING, HEIGHT, WIDTH, fonts, palette
+
 
 class TitleScreen(scene):
     def __init__(self):
         """A class to display the titlescreen, using variable colours to indicate selection."""
         pygame.font.init()
+
+        # Keybinds Manager Reference
+        self.inputManager = inputManager()
 
         # Font Settings
         self.antialiasing = ANTIALIASING
@@ -51,8 +57,6 @@ class TitleScreen(scene):
             surface = self.textRecords[element]
             self.screen.blit(surface, (x, y))
 
-
-
     def update(self):
         '''Animations?'''
         # TODO: Add animations
@@ -61,4 +65,5 @@ class TitleScreen(scene):
 
     def handleEvent(self, event):
         # TODO: Add titlescreen event handling
-        pass
+        if event.type == self.inputManager.binds["up"]:
+            pass

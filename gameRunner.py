@@ -1,9 +1,12 @@
+import json
+
 import pygame
+
+from Constants import FPS, HEIGHT, WIDTH
 from titlescreen import TitleScreen
 
-from Constants import HEIGHT, WIDTH, FPS
 
-class gameRunner():
+class gameRunner:
     def __init__(self) -> None:
         self.height = HEIGHT
         self.width = WIDTH
@@ -13,6 +16,9 @@ class gameRunner():
 
         self.scene = TitleScreen()
 
+        with open("saveFile.json", "w") as saveFile:
+            saveData = json.load(saveFile)
+            self.binds = saveData["binds"]
 
     def run(self) -> None:
         pygame.init()
@@ -25,12 +31,11 @@ class gameRunner():
                     self.running = False
                 else:
                     self.scene.handleEvent(event)
-            
+
             self.scene.update()
             self.scene.display()
             pygame.display.flip()
             self.clock.tick(FPS)
 
-
-    def displayGame(self):
+    def displayGame(self) -> None:
         pass

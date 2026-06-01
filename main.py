@@ -1,4 +1,3 @@
-import pygame
 from gameRunner import gameRunner
 
 def Main():
