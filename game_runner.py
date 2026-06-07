@@ -35,7 +35,6 @@ class gameRunner:
                 
                 else:
                     self.scene.handleEvent(event)
-
             self.scene.update()
             self.scene.display()
             pygame.display.flip()

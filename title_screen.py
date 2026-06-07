@@ -15,31 +15,47 @@ class titleScreen(scene):
 
         # Font Settings
         self.antialiasing = ANTIALIASING
+        self.title_font_size = 96
+        self.body_font_size = 60
+
+        self.text_names = {
+            "title_text": "The Amazing Pokémon Clone",
+            "play_text": "Play",
+            "new_game_text": "New Game",
+            "restart_text": "Restart",
+            "keybind_option_text": "Change Keybinds",
+            "quit_text": "Quit",
+        }
 
         # Fonts
-        self.title_font = pygame.font.Font(fonts["title_header"], 96)
-        self.body_font = pygame.font.Font(fonts["title_body"], 48)
+        self.title_font = pygame.font.Font(fonts["title_header"], self.title_font_size)
+        self.body_font = pygame.font.Font(fonts["title_body"], self.body_font_size)
 
         # Text Renders of Fonts
-        self.title_text = self.title_font.render("test", self.antialiasing, palette["title_text"])
-        self.play_text = self.body_font.render("Play", self.antialiasing, palette["title_text"])
-        self.restart_text = self.body_font.render("Restart", self.antialiasing, palette["title_text"])
-        self.new_game_text = self.body_font.render("New Game", self.antialiasing, palette["title_text"])
-        self.keybind_option_text = self.body_font.render("Change Keybinds", self.antialiasing, palette["title_text"])
-        self.quit_text = self.body_font.render("Quit Game", self.antialiasing, palette["title_text"])
+        self.title_text = self.title_font.render(self.text_names["title_text"], self.antialiasing, palette["title_text"])
+        self.play_text = self.body_font.render(self.text_names["play_text"], self.antialiasing, palette["title_text"])
+        self.restart_text = self.body_font.render(self.text_names["restart_text"], self.antialiasing, palette["title_text"])
+        self.new_game_text = self.body_font.render(self.text_names["new_game_text"], self.antialiasing, palette["title_text"])
+        self.keybind_option_text = self.body_font.render(self.text_names["keybind_option_text"], self.antialiasing, palette["title_text"])
+        self.quit_text = self.body_font.render(self.text_names["quit_text"], self.antialiasing, palette["title_text"])
+
+        self.menu_start = 3
+        self.line_height = self.body_font_size * 1.5
 
         self.text_rect_coords = {
-            "title_text": (WIDTH // 2, HEIGHT // 5),
-            "play_text": (WIDTH // 2, HEIGHT // 3),
-            "new_game_text": (WIDTH // 2, HEIGHT // 1.8),
-            "keybind_option_text": (WIDTH // 2, int(HEIGHT // 1.3)),
-            "quit_text": (WIDTH // 2, int(HEIGHT // 1.1))
+            "title_text": (WIDTH // 8, HEIGHT // 5),
+            "play_text": (WIDTH // 8, (HEIGHT // self.menu_start) + self.line_height),
+            "new_game_text": (WIDTH // 8, (HEIGHT // self.menu_start) + self.line_height * 2),
+            "restart_text": (WIDTH // 8, (HEIGHT // self.menu_start) + self.line_height * 3),
+            "keybind_option_text": (WIDTH // 8, (HEIGHT // self.menu_start) + self.line_height * 4),
+            "quit_text": (WIDTH // 8, (HEIGHT // self.menu_start) + self.line_height * 5)
         }
 
         self.text_records = {
             "title_text": self.title_text,
             "play_text": self.play_text,
             "new_game_text": self.new_game_text,
+            "restart_text": self.restart_text,
             "keybind_option_text": self.keybind_option_text,
             "quit_text": self.quit_text,
         }
@@ -48,7 +64,7 @@ class titleScreen(scene):
         self.WIDTH = WIDTH
         self.HEIGHT = HEIGHT
 
-        self.selected_option = None
+        self.selected_option = 1
 
 
     def display(self): 
@@ -57,8 +73,12 @@ class titleScreen(scene):
 
         for element in self.text_records:
             x, y = self.text_rect_coords[element]
-            surface = self.text_records[element]
+            if list(self.text_records.keys()).index(element) == self.selected_option:
+                surface = self.body_font.render(self.text_names[element], self.antialiasing, palette["title_highlight"])
+            else:
+                surface = self.text_records[element]
             self.screen.blit(surface, (x, y))
+
 
     def update(self):
         '''Animations?'''
@@ -67,6 +87,10 @@ class titleScreen(scene):
         pass
 
     def handleEvent(self, event):
-        # TODO: Add titlescreen event handling
-        if event.type == self.input_manager.binds["up"]:
-            pass
+        if event.type == pygame.KEYDOWN:
+            if event.key == self.input_manager.binds["up"]:
+                if self.selected_option > 1:
+                    self.selected_option -= 1
+            elif event.key == self.input_manager.binds["down"]:
+                if self.selected_option < (len(self.text_records) - 1):
+                    self.selected_option += 1

@@ -12,7 +12,7 @@ class inputManager:
         if cls._instance is None:
             cls._instance = super().__new__(cls)
 
-        cls._instance.bind_store = "save_data/bind_store.json"
+        cls._instance.bind_store = "saves/bind_store.json"
         cls._instance.binds = {
             "up": pygame.K_w,
             "down": pygame.K_s,
