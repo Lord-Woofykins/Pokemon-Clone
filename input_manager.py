@@ -5,14 +5,14 @@ import pygame
 class inputManager:
     _instance = None
 
-    bindStore: str
+    bind_store: str
     binds: dict
 
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
 
-        cls._instance.bindStore = "Save Data/bindStore.json"
+        cls._instance.bind_store = "save_data/bind_store.json"
         cls._instance.binds = {
             "up": pygame.K_w,
             "down": pygame.K_s,
@@ -27,18 +27,18 @@ class inputManager:
 
     def _load(self):
         try:
-            with open(self.bindStore, "r") as bindStore:
-                bindData = json.load(bindStore)
+            with open(self.bind_store, "r") as bind_store:
+                bindData = json.load(bind_store)
                 return bindData
         except json.JSONDecodeError:
-            with open(self.bindStore, "w") as bindStore:
-                json.dump(self.binds, bindStore)
+            with open(self.bind_store, "w") as bind_store:
+                json.dump(self.binds, bind_store)
                 return self.binds
         
     def temp(self, action, key):
         self.binds.update({action: key})
-        with open(self.bindStore, "w") as saveFile:
-            json.dump(self.binds, saveFile)
+        with open(self.bind_store, "w") as save_file:
+            json.dump(self.binds, save_file)
     
 
         

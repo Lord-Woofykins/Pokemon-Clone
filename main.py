@@ -1,4 +1,4 @@
-from gameRunner import gameRunner
+from game_runner import gameRunner
 
 def Main():
     game = gameRunner()

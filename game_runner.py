@@ -1,8 +1,8 @@
 import pygame
 
-from inputManager import inputManager
-from Constants import FPS, HEIGHT, WIDTH
-from titlescreen import TitleScreen
+from input_manager import inputManager
+from constants import FPS, HEIGHT, WIDTH
+from title_screen import titleScreen
 
 
 class gameRunner:
@@ -13,9 +13,9 @@ class gameRunner:
         self.clock = pygame.time.Clock()
         self.running = True
 
-        self.scene = TitleScreen()
+        self.scene = titleScreen()
 
-        self.inputManager = inputManager()
+        self.input_manager = inputManager()
 
     def run(self) -> None:
         pygame.init()
@@ -28,7 +28,7 @@ class gameRunner:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
-                    elif event.key == self.inputManager.binds["quit"]:
+                    elif event.key == self.input_manager.binds["quit"]:
                         self.running = False
                     else:
                         self.scene.handleEvent(event)

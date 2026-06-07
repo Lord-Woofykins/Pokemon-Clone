@@ -13,14 +13,14 @@ FPS = 60
 ANTIALIASING = False
 
 fonts = {
-    "titleHeader": "Assets/Fonts/Jacquard12-Regular.ttf",
-    "titleBody": "Assets/Fonts/Jacquard12-Regular.ttf"
+    "title_header": "assets/fonts/Jacquard12-Regular.ttf",
+    "title_body": "assets/fonts/Jacquard12-Regular.ttf"
 }
 
 # Colour Constants
 palette = {
-    "titleScreen": (0,16,17),
-    "titleText": (56,3,86),
-    "titleHighlight": (242,214,2),
+    "title_screen": (0,16,17),
+    "title_text": (56,3,86),
+    "title_highlight": (242,214,2),
 
 }
