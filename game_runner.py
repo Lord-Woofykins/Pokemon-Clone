@@ -3,6 +3,7 @@ import pygame
 from input_manager import inputManager
 from constants import FPS, HEIGHT, WIDTH
 from title_screen import titleScreen
+from game_world import gameWorld
 
 
 class gameRunner:
@@ -13,7 +14,7 @@ class gameRunner:
         self.clock = pygame.time.Clock()
         self.running = True
 
-        self.scene = titleScreen()
+        self.scene = titleScreen(self.change_scene)
 
         self.input_manager = inputManager()
 
@@ -39,6 +40,10 @@ class gameRunner:
             self.scene.display()
             pygame.display.flip()
             self.clock.tick(FPS)
-
-    def displayGame(self) -> None:
-        pass
+    
+    def change_scene(self, option):
+        match option:
+            case "title_screen":
+                self.scene = titleScreen(self.change_scene)
+            case "world":
+                self.scene = gameWorld(self.change_scene)

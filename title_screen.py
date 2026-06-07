@@ -6,12 +6,13 @@ from constants import ANTIALIASING, HEIGHT, WIDTH, fonts, palette
 
 
 class titleScreen(scene):
-    def __init__(self):
+    def __init__(self, change_scene):
         """A class to display the titlescreen, using variable colours to indicate selection."""
         pygame.font.init()
 
-        # Keybinds Manager Reference
+        # External References
         self.input_manager = inputManager()
+        self.scene_change_callback = change_scene
 
         # Font Settings
         self.antialiasing = ANTIALIASING
@@ -20,9 +21,8 @@ class titleScreen(scene):
 
         self.text_names = {
             "title_text": "The Amazing Pokémon Clone",
-            "play_text": "Play",
+            "play_text": "Play / Resume",
             "new_game_text": "New Game",
-            "restart_text": "Restart",
             "keybind_option_text": "Change Keybinds",
             "quit_text": "Quit",
         }
@@ -34,7 +34,6 @@ class titleScreen(scene):
         # Text Renders of Fonts
         self.title_text = self.title_font.render(self.text_names["title_text"], self.antialiasing, palette["title_text"])
         self.play_text = self.body_font.render(self.text_names["play_text"], self.antialiasing, palette["title_text"])
-        self.restart_text = self.body_font.render(self.text_names["restart_text"], self.antialiasing, palette["title_text"])
         self.new_game_text = self.body_font.render(self.text_names["new_game_text"], self.antialiasing, palette["title_text"])
         self.keybind_option_text = self.body_font.render(self.text_names["keybind_option_text"], self.antialiasing, palette["title_text"])
         self.quit_text = self.body_font.render(self.text_names["quit_text"], self.antialiasing, palette["title_text"])
@@ -46,8 +45,7 @@ class titleScreen(scene):
             "title_text": (WIDTH // 8, HEIGHT // 5),
             "play_text": (WIDTH // 8, (HEIGHT // self.menu_start) + self.line_height),
             "new_game_text": (WIDTH // 8, (HEIGHT // self.menu_start) + self.line_height * 2),
-            "restart_text": (WIDTH // 8, (HEIGHT // self.menu_start) + self.line_height * 3),
-            "keybind_option_text": (WIDTH // 8, (HEIGHT // self.menu_start) + self.line_height * 4),
+            "keybind_option_text": (WIDTH // 8, (HEIGHT // self.menu_start) + self.line_height * 3),
             "quit_text": (WIDTH // 8, (HEIGHT // self.menu_start) + self.line_height * 5)
         }
 
@@ -55,7 +53,6 @@ class titleScreen(scene):
             "title_text": self.title_text,
             "play_text": self.play_text,
             "new_game_text": self.new_game_text,
-            "restart_text": self.restart_text,
             "keybind_option_text": self.keybind_option_text,
             "quit_text": self.quit_text,
         }
@@ -101,20 +98,22 @@ class titleScreen(scene):
                     case 2:
                         self._newGame()
                     case 3:
-                        self._restart()
-                    case 4:
                         self._changeKeybinds()
-                    case 5:
+                    case 4:
                         self._quit()
 
     def _play(self):
-        print("Not Yet Implemented")
+        self.scene_change_callback("world")
+
     def _newGame(self):
+        # TODO: Overwrite Save
+        self.scene_change_callback("world")
         print("Not Yet Implemented")
-    def _restart(self):
-        print("Not Yet Implemented")
+
     def _changeKeybinds(self):
+        # TODO: Implement Change Keybinds
         print("Not Yet Implemented")
+
     def _quit(self):
         # TODO: Add save function
         quit()

@@ -38,5 +38,5 @@ class inputManager:
         
     def temp(self, action, key):
         self.binds.update({action: key})
-        with open(self.bind_store, "w") as save_file:
-            json.dump(self.binds, save_file)
+        with open(self.bind_store, "w") as bind_store:
+            json.dump(self.binds, bind_store)
