@@ -19,6 +19,7 @@ class inputManager:
             "left": pygame.K_a,
             "right": pygame.K_d,
             "quit": pygame.K_q,
+            "enter": pygame.K_RETURN,
         }
 
         cls._instance.binds.update(cls._instance._load())
@@ -39,10 +40,3 @@ class inputManager:
         self.binds.update({action: key})
         with open(self.bind_store, "w") as save_file:
             json.dump(self.binds, save_file)
-    
-
-        
-testmanager = inputManager()
-print(testmanager.binds)
-testmanager.temp("sus", 6767676767)
-print(testmanager.binds)

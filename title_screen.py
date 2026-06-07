@@ -94,3 +94,27 @@ class titleScreen(scene):
             elif event.key == self.input_manager.binds["down"]:
                 if self.selected_option < (len(self.text_records) - 1):
                     self.selected_option += 1
+            elif event.key == self.input_manager.binds["enter"]:
+                match self.selected_option:
+                    case 1:
+                        self._play()
+                    case 2:
+                        self._newGame()
+                    case 3:
+                        self._restart()
+                    case 4:
+                        self._changeKeybinds()
+                    case 5:
+                        self._quit()
+
+    def _play(self):
+        print("Not Yet Implemented")
+    def _newGame(self):
+        print("Not Yet Implemented")
+    def _restart(self):
+        print("Not Yet Implemented")
+    def _changeKeybinds(self):
+        print("Not Yet Implemented")
+    def _quit(self):
+        # TODO: Add save function
+        quit()
