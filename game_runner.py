@@ -1,6 +1,6 @@
 import pygame
 
-from input_manager import inputManager
+from data_managers import inputManager
 from constants import FPS, HEIGHT, WIDTH
 from title_screen import titleScreen
 from game_world import gameWorld
@@ -29,7 +29,7 @@ class gameRunner:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
-                    elif event.key == self.input_manager.binds["quit"]:
+                    elif event.key == self.input_manager.retrieve("quit"):
                         self.running = False
                     else:
                         self.scene.handleEvent(event)

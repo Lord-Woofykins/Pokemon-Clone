@@ -1,6 +1,6 @@
 import pygame
 
-from input_manager import inputManager
+from data_managers import inputManager
 from abstract_classes import scene
 from constants import ANTIALIASING, HEIGHT, WIDTH, fonts, palette
 
@@ -85,13 +85,13 @@ class titleScreen(scene):
 
     def handleEvent(self, event):
         if event.type == pygame.KEYDOWN:
-            if event.key == self.input_manager.binds["up"]:
+            if event.key == self.input_manager.retrieve("up"):
                 if self.selected_option > 1:
                     self.selected_option -= 1
-            elif event.key == self.input_manager.binds["down"]:
+            elif event.key == self.input_manager.retrieve("down"):
                 if self.selected_option < (len(self.text_records) - 1):
                     self.selected_option += 1
-            elif event.key == self.input_manager.binds["enter"]:
+            elif event.key == self.input_manager.retrieve("enter"):
                 match self.selected_option:
                     case 1:
                         self._play()
