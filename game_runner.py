@@ -11,10 +11,11 @@ class gameRunner:
         self.height = HEIGHT
         self.width = WIDTH
         self.screen = pygame.display.set_mode((self.width, self.height))
+        pygame.display.set_caption("The Amazing Pokémon Clone")
         self.clock = pygame.time.Clock()
         self.running = True
 
-        self.scene = titleScreen(self.change_scene)
+        self.scene = titleScreen(self.changeScene)
 
         self.input_manager = inputManager()
 
@@ -41,9 +42,9 @@ class gameRunner:
             pygame.display.flip()
             self.clock.tick(FPS)
     
-    def change_scene(self, option):
+    def changeScene(self, option):
         match option:
             case "title_screen":
-                self.scene = titleScreen(self.change_scene)
+                self.scene = titleScreen(self.changeScene)
             case "world":
-                self.scene = gameWorld(self.change_scene)
+                self.scene = gameWorld(self.changeScene)

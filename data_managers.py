@@ -1,8 +1,11 @@
-import json
+"""All Data Management Related Classes Are Contained Here. \n
+Such as inputManager and saveManager."""
 
+import json
 import pygame
 
 class dataManager:
+    """A Parent Class of All Managers of Data"""
     _instances = {}
 
     data_path: str
@@ -62,7 +65,7 @@ class saveManager(dataManager):
                return
         self._initialised = True
 
-        self.data_path = "saves/bind_store.json"
+        self.data_path = "saves/save_file.json"
         self._data = {}
         
         self._data.update(self._load())
