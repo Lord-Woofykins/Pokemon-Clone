@@ -29,7 +29,6 @@ class player():
 class gameWorld(scene):
     def __init__(self, change_scene):
         super().__init__(change_scene)
-        # TODO: Implement gameWorld
 
         # External References
         self.scene_change_callback("titleScreen")
