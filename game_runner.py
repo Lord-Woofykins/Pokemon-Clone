@@ -4,6 +4,7 @@ from data_managers import inputManager
 from constants import FPS, HEIGHT, WIDTH
 from title_screen import titleScreen
 from game_world import gameWorld
+from battle import battle
 
 
 class gameRunner:
@@ -48,3 +49,5 @@ class gameRunner:
                 self.scene = titleScreen(self.changeScene)
             case "world":
                 self.scene = gameWorld(self.changeScene)
+            case "battle":
+                self.scene = battle(self.changeScene)

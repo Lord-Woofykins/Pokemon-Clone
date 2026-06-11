@@ -1,5 +1,6 @@
 import pygame
 import json
+import random
 
 from abstract_classes import scene
 from data_managers import inputManager, saveManager
@@ -15,15 +16,15 @@ class player():
     def display(self):
         pygame.display.get_surface().blit(self.sprite, (self.x*75, self.y*75))
     
-    def move(self, x, y, boundaryCheckCallback):
+    def move(self, x, y, boundaryMovementCallback, boundaryEventCallback):
         future_x = self.x + x
         future_y = self.y + y
 
-        if boundaryCheckCallback(future_x, future_y):
+        if boundaryMovementCallback(future_x, future_y):
             self.x = future_x
             self.y = future_y
 
-
+            boundaryEventCallback(self.x, self.y)
 
 class gameWorld(scene):
     def __init__(self, change_scene):
@@ -65,13 +66,15 @@ class gameWorld(scene):
                     case 2:
                         tile = pygame.image.load(images["path"])
                     case 3:
-                        tile = pygame.image.load(images["wall"])
+                        tile = pygame.image.load(images["brick_wall"])
                     case 4:
                         tile = pygame.image.load(images["doorTop"])
                     case 5:
                         tile = pygame.image.load(images["doorBottom"])
                     case 6:
                         tile = pygame.image.load(images["roof"])
+                    case 7:
+                        tile = pygame.image.load(images["window"])
                     case _:
                         tile = pygame.image.load(images["default"])
 
@@ -96,17 +99,23 @@ class gameWorld(scene):
     def handleEvent(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == self.input_manager.retrieve("up"):
-                self.player.move(0, -1, self.checkBoundary)
+                self.player.move(0, -1, self.checkBoundaryMovement, self.checkBoundaryEvent)
             elif event.key == self.input_manager.retrieve("down"):
-                self.player.move(0, 1, self.checkBoundary)
+                self.player.move(0, 1, self.checkBoundaryMovement, self.checkBoundaryEvent)
             elif event.key == self.input_manager.retrieve("left"):
-                self.player.move(-1, 0, self.checkBoundary)
+                self.player.move(-1, 0, self.checkBoundaryMovement, self.checkBoundaryEvent)
             elif event.key == self.input_manager.retrieve("right"):
-                self.player.move(1, 0, self.checkBoundary)
+                self.player.move(1, 0, self.checkBoundaryMovement, self.checkBoundaryEvent)
 
-    def checkBoundary(self, x, y) -> bool:
-        """Returns True if there is no boundary conflicing with position."""
-        if self.map_data["layers"]["boundaries"][y][x]:
+    def checkBoundaryMovement(self, x, y) -> bool:
+        """Returns True if there is no boundary conflicing with the given position."""
+        if self.map_data["layers"]["boundaries"][y][x] == 1:
             return False
         else:
             return True
+    
+    def checkBoundaryEvent(self, x, y):
+        """"""
+        if self.map_data["layers"]["boundaries"][y][x] == 2:
+            if random.random() < 0.08:
+                self.scene_change_callback("battle")
