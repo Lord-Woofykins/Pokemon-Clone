@@ -54,7 +54,10 @@ class inputManager(dataManager):
             "left": pygame.K_a,
             "right": pygame.K_d,
             "quit": pygame.K_q,
-            "enter": pygame.K_RETURN
+            "enter": pygame.K_RETURN,
+            "option_1": pygame.K_1,
+            "option_2": pygame.K_2,
+            "option_3": pygame.K_3
             }
         
         self._data.update(self._load())

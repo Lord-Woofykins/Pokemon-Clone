@@ -5,6 +5,7 @@ from constants import FPS, HEIGHT, WIDTH
 from title_screen import titleScreen
 from game_world import gameWorld
 from battle import battle
+from end_scene import end
 
 
 class gameRunner:
@@ -43,7 +44,7 @@ class gameRunner:
             pygame.display.flip()
             self.clock.tick(FPS)
     
-    def changeScene(self, option):
+    def changeScene(self, option, winStat=False):
         match option:
             case "title_screen":
                 self.scene = titleScreen(self.changeScene)
@@ -51,3 +52,5 @@ class gameRunner:
                 self.scene = gameWorld(self.changeScene)
             case "battle":
                 self.scene = battle(self.changeScene)
+            case "end":
+                self.scene = end(self.changeScene, winStat)

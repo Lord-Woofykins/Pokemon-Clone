@@ -1,7 +1,3 @@
 {
-    "map": "town.json",
-    "player_stats": {
-        "health": 100,
-        "score": 0
-    }
+    "map": "town.json"
 }
